@@ -88,3 +88,35 @@ export default App;
 
 ```
 
+
+
+## useRef
+
+### 특정 DOM 선택
+
+- 리액트를 사용하는 프로젝트에서 DOM 을 직접 선택해야 하는 상황에서 사용한다.
+- input, textarea 등 form 관련 요소에 접근시 직접 접근이 어렵기 때문에 useRef로 해당 요소를 참조하여 접근할 수 있다.
+- 함수형 컴포넌트에서, useRef(Hook)을 사용한다.
+- 클래스형 컴포넌트에서, 콜백 함수를 사용하거나 React.createRef 라는 함수를 사용한다.
+
+```react
+import React from "react";
+import { useRef, useEffect } from "react";
+
+function Input() {
+  useEffect(() => {
+    inputBox.current.focus();
+  }, []);
+
+  const inputBox = useRef();
+
+  return (
+    <React.Fragment>
+      <h2>useRef를 사용하여 input에 포커스 두기</h2>
+      <input type="text" ref={inputBox} />
+    </React.Fragment>
+  );
+}
+
+export default Input;
+```
