@@ -75,3 +75,106 @@ var foo;
 ```
 
 변수 선언문 이전에 변수를 참조하는 것은 프로그램의 흐름상 맞지 않을 뿐더러 가독성을 떨어뜨리며 오류를 발생시킬 여지를 남긴다.
+
+
+
+## 2. let 키워드
+
+### 2.1. 변수 중복 선언 금지
+
+var 키워드로 이름이 동일한 변수를 중복 선언하며 값을 할당할 경우 에러는 발생하지 않으나 의도치 않게 먼저 선언된 변수의 값이 재할당되며 변경되는 부작용이 발생한다.
+하지만 let 키워드로 이름이 같은 변수를 중복 선언하면 문법 에러(SyntaxError)가 발생한다.
+
+```javascript
+var foo = 123;
+// var 키워드로 선언된 변수는 같은 스코프 내에서 중복 선언을 허용한다.
+// 아래 변수 선언문은 자바스크립트 엔진에 의해 var 키워드가 없는 것처럼 동작한다.
+var foo = 456;
+
+let bar = 123;
+// let이나 const 키워드로 선언된 변수는 같은 스코프 내에서 중복 선언을 허용하지 않는다.
+let bar = 456; // SyntaxError: Identifier 'bar' has already been declared
+```
+
+
+
+### 2.2. 블록 레벨 스코프
+
+var 키워드로 선언한 변수는 오직 함수의 코드 블록만을 지역 스코프로 인정하는 함수 레벨 스코프를 따른다. 하지만 let 키워드로 선언한 변수는 모든 코드 블록(함수, if 문, for 문, while 문, try/catch 문 등)을 지역 스코프로 인정하는 블록 레벨 스코프(Block-level scope)를 따른다.
+
+```javascript
+let foo = 1; // 전역 변수
+
+{
+ let foo = 2; // 지역 변수
+ let bar = 3; // 지역 변수
+}
+
+console.log(foo); // 1
+console.log(bar); // ReferenceError: bar is not defined
+```
+
+
+
+### 2.3. 변수 호이스팅
+
+var 키워드로 선언한 변수와 달리 let 키워드로 선언한 변수는 변수 호이스팅이 발생하지 않는 것처럼 동작한다. 그러나 let 키워드로 선언한 변수를 변수 선언문 이전에 참조하면 참조 에러(ReferenceError)가 발생한다.
+
+```javascript
+console.log(foo); // ReferenceError: foo is not defined
+let foo;
+```
+
+var 키워드로 선언한 변수는 런타임 이전에 자바스크립트 엔진에 의해 암묵적으로 “선언 단계”와 “초기화 단계”가 한번에 진행되지만 **let 키워드로 선언한 변수는 “선언 단계”와 “초기화 단계”가 분리되어 진행된다**. 즉, 런타임 이전에 자바스크립트 엔진에 의해 암묵적으로 선언 단계가 먼저 실행되지만 초기화 단계는 변수 선언문에 도달했을 때 실행된다. 
+
+만약 초기화 단계가 실행되기 이전에 변수에 접근하려고 하면 참조 에러(ReferenceError)가 발생한다. let 키워드로 선언한 변수는 스코프의 시작 지점부터 초기화 단계 시작 지점(변수 선언문)까지 변수를 참조할 수 없다. 스코프의 시작 지점부터 초기화 시작 지점까지 변수를 참조할 수 없는 구간을 일시적 사각지대(Temporal Dead Zone; TDZ)라고 부른다.
+
+```javascript
+// 런타임 이전에 선언 단계가 실행된다. 아직 변수가 초기화되지 않았다.
+// 초기화 이전의 일시적 사각지대에서는 변수를 참조할 수 없다.
+console.log(foo); // ReferenceError: foo is not defined
+
+let foo; // 변수 선언문에서 초기화 단계가 실행된다.
+console.log(foo); // undefined
+
+foo = 1; // 할당문에서 할당 단계가 실행된다.
+console.log(foo); // 1
+```
+
+결국 let 키워드로 선언한 변수는 변수 호이스팅이 발생하지 않는 것처럼 보인다. 하지만 그렇지 않다. 
+
+```javascript
+let foo = 1; // 전역 변수
+
+{
+  console.log(foo); // ReferenceError: Cannot access 'foo' before initialization
+  let foo = 2; // 지역 변수
+}
+```
+
+let 키워드로 선언한 변수의 경우, 변수 호이스팅이 발생하지 않는다면 위 예제는 전역 변수 foo의 값을 출력해야 한다. 하지만 let 키워드로 선언한 변수도 여전히 호이스팅이 발생하기 때문에 참조 에러
+(ReferenceError)가 발생한다.
+
+
+
+### 2.4. 전역 객체와 let
+
+전역 객체는 클라이언트 사이드 환경(브라우저)에서는 window, 서버 사이드 환경(Node.js)에서는 global 객체를 가리킨다.
+var 키워드로 선언한 전역 변수와 전역 함수, 그리고 선언하지 않은 변수에 값을 할당한 암묵적 전역
+은 전역 객체의 프로퍼티가 된다. 전역 객체의 프로퍼티를 참조할 때 window를 생략할 수 있다.
+
+let 키워드로 선언한 전역 변수는 전역 객체의 프로퍼티가 아니다. 즉, window.foo와 같이 접근할 수 없다. let 전역 변수는 보이지 않는 개념적인 블록내에 존재하게 된다.
+
+```javascript
+// 이 예제는 브라우저 환경에서 실행해야 한다.
+let x = 1;
+
+// let, const 키워드로 선언한 전역 변수는 전역 객체의 프로퍼티가 아니다.
+console.log(window.x); // undefined
+console.log(x); // 1
+```
+
+
+
+
+
