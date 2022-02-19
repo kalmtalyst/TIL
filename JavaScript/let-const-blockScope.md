@@ -176,5 +176,115 @@ console.log(x); // 1
 
 
 
+## 3. const 키워드
+
+const 키워드는 상수(constant)를 선언하기 위해 사용한다. 하지만 반드시 상수만을 위해 사용하지는 않는다.
 
 
+
+### 3.1. 선언과 초기화
+
+반드시 선언과 동시에 초기화가 이뤄져야 한다. 그렇지 않으면 다음과 같이 문법 에러(SyntaxError)가 발생한다.
+
+```javascript
+const foo; // SyntaxError: Missing initializer in const declaration
+```
+
+
+
+let 키워드로 선언한 변수와 마찬가지로 블록 레벨 스코프를 가지며, 변수 호이스팅이 발생하지 않는 것처럼 동작한다.
+
+```javascript
+{
+ // 변수 호이스팅이 발생하지 않는 것처럼 동작한다
+ console.log(foo); // ReferenceError: Cannot access 'foo' before initialization
+ const foo = 1;
+ console.log(foo); // 1
+}
+// 블록 레벨 스코프를 갖는다.
+console.log(foo); // ReferenceError: foo is not defined
+```
+
+
+
+### 3.2. 재할당 금지
+
+var 또는 let 키워드로 선언한 변수는 재할당이 자유로우나 **const 키워드로 선언한 변수는 재할당이 금지된다**.
+
+```javascript
+const foo = 1;
+foo = 2; // TypeError: Assignment to constant variable.
+```
+
+
+
+### 3.3. 상수
+
+변수의 상대 개념인 **상수는 재할당이 금지된 변수를 말한다**. 상수도 값을 저장하기 위한 메모리 공간이 필요하므로 변수라고 할 수 있다. 단, 변수는 언제든지 재할당을 통해 변수값을 변경할 수 있지만 상수는 재할당이 금지된다.
+
+상수는 상태 유지와 가독성, 유지보수의 편의를 위해 적극적으로 사용해야 한다. 
+
+```javascript
+// 세전 가격
+let preTaxPrice = 100;
+
+// 세후 가격
+// 0.1의 의미를 명확히 알기 어렵기 때문에 가독성이 좋지 않다.
+let afterTaxPrice = preTaxPrice + (preTaxPrice * 0.1);
+console.log(afterTaxPrice); // 110
+```
+
+세율을 상수로 정의하여 값의 의미를 파악할 수 있는 고정값으로 사용할 수 있다.
+
+```javascript
+// 세율을 의미하는 0.1은 변경할 수 없는 상수로서 사용될 값이다.
+// 변수 이름을 대문자로 선언해 상수임을 명확히 나타낸다.
+const TAX_RATE = 0.1;
+
+// 세전 가격
+let preTaxPrice = 100;
+
+// 세후 가격
+let afterTaxPrice = preTaxPrice + (preTaxPrice * TAX_RATE);
+
+console.log(afterTaxPrice); // 110
+```
+
+const 키워드로 선언된 변수는 재할당이 금지된다. **const 키워드로 선언된 변수에 원시 값을 할당한 경우, 원시 값은 변경할 수 없는 값**(immutable value)**이고 const 키워드에 의해 재할당이 금지되므로 할당된 값을 변경할 수 있는 방법은 없다**. 또한 상수는 프로그램 전체에서 공통적으로 사용하므로 나중에 세율이 변경되면 상수만을 변경하면 되기 때문에 유지보수성이 대폭 향상된다.
+
+일반적으로 상수의 이름은 대문자로 선언해 상수임을 명확히 나타낸다. 여러 단어로 이뤄진 경우에는 언더스코어(_)로 구분해서 스네이크 케이스로 표현하는 것이 일반적이다.
+
+
+
+### 3.4. const 키워드와 객체
+
+const 키워드로 선언된 변수에 원시 값을 할당한 경우 값을 변경할 수 없다. 하지만 **const 키워드로 선언된 변수에 객체를 할당한 경우, 값을 변경할 수 있다**. 변경 불가능한 값인 원시 값은 재할당없이 변경(교체)할 수 있는 방법이 없지만 변경 가능한 값인 객체는 재할당없이도 직접 변경이 가능하기 때문이다.
+
+```javascript
+const person = {
+ name: 'Park'
+};
+
+// 객체는 변경 가능한 값이다. 따라서 재할당없이 변경이 가능하다.
+person.name = 'Kim';
+
+console.log(person); // {name: "Kim"}
+```
+
+const 키워드는 새로운 값을 재할당하는 것은 불가능하지만 프로퍼티 동적 생성, 삭제, 프로퍼티 값의 변경을 통해 객체를 변경하는 것은 가능하다. 이때 객체가 변경되더라도 변수에 할당된 참조값은 변경되지 않는다.
+
+
+
+## 4. var vs. let vs. const
+
+var와 let, 그리고 const 키워드는 다음과 같이 사용하는 것을 권장한다.
+
+- ES6를 사용한다면 var 키워드는 사용하지 않는다.
+- 재할당이 필요한 경우에 한정해 let 키워드를 사용한다. 이때 변수의 스코프는 최대한 좁게 만든다.
+- 변경이 발생하지 않고 읽기 전용으로 사용하는(재할당이 필요 없는 상수) 원시 값과 객체에는 const 키워드를 사용한다. const 키워드는 재할당을 금지하므로 var, let 키워드보다 안전하다.
+
+
+
+## 참고자료
+
+- 이웅모.(2020). 모던 자바스크립트 Deep Dive. 파주: 위키북스.
