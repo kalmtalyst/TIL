@@ -419,4 +419,4 @@ getStringLength('hi'); // 2
 
 ## 참고자료
 
-- 모던 자바스크립트 Deep Dive, 이웅모 저
+- 이웅모.(2020). 모던 자바스크립트 Deep Dive. 파주: 위키북스.
