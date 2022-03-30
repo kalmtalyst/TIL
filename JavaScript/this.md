@@ -235,5 +235,36 @@ console.log(radius); // 15
 ### 2.4. Function.prototype.apply/call/bind 메소드에 의한 간접 호출
 apply, call, bind 메소드는 인수로 this와 인수 리스트를 전달 받아 함수를 호출한다. apply와 call은 Function.prototype의 메소드로 Function 생성자 함수를 constructor 프로퍼티로 가리키는 모든 함수가 상속받아 사용할 수 있다.
 
+
+
+```javascript
+// 이 예제는 호출할 함수, 즉 getThisBinding 함수에 인수를 전달하지 않는다.
+function getThisBinding() {
+ return this;
+}
+
+// this로 사용할 객체
+const thisArg = { a: 1 };
+
+console.log(getThisBinding()); // window
+
+// 함수(getThisBinding)를 호출하면서 인수로 전달한 객체를 호출한 함수의 this에 바인딩한다.
+console.log(getThisBinding.apply(thisArg)); // { a: 1 }
+console.log(getThisBinding.call(thisArg)); // { a: 1 }
+```
+
 - apply와 call 메소드는 함수를 호출한다.
 - 첫번째 인수로 전달한 특정 객체를 호출한 함수의 this에 바인딩한다.
+- 호출할 함수에 인수를 전달하는 방식만 다를 뿐 동일하게 동작한다.
+
+
+
+## 함수 호출 방식에 따른 동적 this 바인딩
+
+| 함수 호출 방식                                             | this 바인딩                                                  |
+| ---------------------------------------------------------- | ------------------------------------------------------------ |
+| 일반 함수 호출                                             | 전역 객체                                                    |
+| 메소드 호출                                                | 메소드를 호출한 객체                                         |
+| 생성자 함수 호출                                           | 생성자 함수가 (미래에) 생성할 인스턴스                       |
+| Function.prototype.apply/call/bind 메소드에 의한 간접 호출 | Function.prototype.apply/call/bind 메소드에 인자로 전달한 객체 |
+
