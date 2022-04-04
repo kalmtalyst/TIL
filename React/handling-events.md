@@ -85,3 +85,9 @@ ReactDOM.render(
   document.getElementById('root')
 );
 ```
+
+
+
+## 참고자료
+
+- [이벤트 처리하기](https://ko.reactjs.org/docs/handling-events.html)

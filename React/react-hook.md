@@ -10,7 +10,17 @@
 
 ## :white_check_mark: useState
 
+### State
+
+- 데이터를 저장하는 공간
+
 - Hook을 호출하여 함수 컴포넌트에 state 변수를 선언할 수 있다.
+
+- 웹을 App처럼 동작하게할 수 있다.
+
+  - state가 변경되면 data를 담고 있는 HTML이 새로고침 없이 재렌더링된다. 
+
+  
 
 ```react
 import React, { useState } from 'react';

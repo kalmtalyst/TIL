@@ -1,6 +1,6 @@
 # Rendering Elements
 
-## 엘리먼트란?
+### 엘리먼트란?
 
 - 엘리먼트 : React app의 가장 작은 단위이다.
   - 익숙하게 접근하기 위하여 이하 요소라고 기재한다.
@@ -12,7 +12,9 @@ const element = <h1>Hello, world</h1>;
 
 - 브라우저 DOM 요소와는 달리 React 요소는 일반 객체로 쉽게 생성할 수 있고 React DOM은 React 요소와 일치하도록 DOM을 업데이트한다.
 
-## DOM에 요소 렌더링하기
+</br>
+
+### DOM에 요소 렌더링하기
 
 HTML 파일 어딘가에 `<div>` 요소가 있다고 하자.
 
@@ -31,7 +33,9 @@ const element = <h1>Hello, world</h1>;
 ReactDOM.render(element, document.getElementById('root'));
 ```
 
-## 렌더링 된 요소 업데이트하기
+</br>
+
+### 렌더링 된 요소 업데이트하기
 
 - React 요소는 불변객체(immutable object) 이다.
 - 요소 생성 이후, 해당 요소의 자식이나 속성을 변경할 수 없다.
@@ -53,8 +57,16 @@ setInterval(tick, 1000);
 
 - 위 함수는 `setInterval()` 의 콜백이 매초 `ReactDOM.render()`를 호출한다.
 
-## 변경된 부분만 업데이트하기
+</br>
+
+### 변경된 부분만 업데이트하기
 
 - React DOM은 해당 요소와 그 자식 요소를 이전에 렌더된 요소와 비교하여 변경이 필요한 경우에만 DOM을 업데이트한다.
 
-- 위 예제의 함수는 <div> 를 포함하여 모든 하위 요소들을 매초마다 새롭게 렌더링 하는데 실질적으로 React DOM은 내용이 변경된 <h2> 의 텍스트 노드만을 업데이트한다.
+- 위 예제의 함수는 `<div>` 를 포함하여 모든 하위 요소들을 매초마다 새롭게 렌더링 하는데 실질적으로 React DOM은 내용이 변경된 `<h2>`의 텍스트 노드만을 업데이트한다.
+
+</br>
+
+## 참고자료
+
+- [엘리먼트 렌더링](https://ko.reactjs.org/docs/rendering-elements.html)

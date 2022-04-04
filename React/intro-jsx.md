@@ -32,14 +32,14 @@ function Hello() {
 export default Hello;
 ```
 
-
+</br>
 
 ### JSX = 표현식이다.
 
 - 컴파일 후, JSX 표현식이 JavaScript 함수로 호출 되고 JavaScript 객체로 인식된다.
 - 즉, JSX를 if 문, for문, 변수에 할당하고 함수 호출시 arguments로 전달 및 함수의 return값 등으로 사용할 수 있다.
 
-
+</br>
 
 ### JSX 어트리뷰트 정의
 
@@ -68,7 +68,7 @@ const element = <img src="{user.avatarUrl}"></img>; // X
 >
 > ex) HTML 요소의 `class`, `tabindex`는 `className`, `tabIndex` 로 작성
 
-
+</br>
 
 ### JSX 자식 요소 정의
 
@@ -102,7 +102,7 @@ const title = response.petentiallyDangerousInput; // 이 코드는 안전하다.
 const element = <h1>{title}</h1>;
 ```
 
-
+</br>
 
 ### JSX는 객체를 나타낸다.
 
@@ -129,7 +129,7 @@ const element = React.createElement(
 `React.createElement()`는 버그가 없는 코드를 작성하는 데 도움이 되도록 몇 가지 검사를 수행하며, 다음과 같은 객체를 생성한다.
 
 ```react
-// 아래 객체의 모습은 simplified 된 것이다.
+// 다음 객체의 구조는 단순화된 것이다.
 const element = {
   type: 'h1',
   props: {
@@ -139,11 +139,9 @@ const element = {
 };
 ```
 
+</br>
 
+## 참고자료
 
-
-
-## 출처
-
-[참고자료](https://ko.reactjs.org/docs/introducing-jsx.html) : JSX 소개
+- [JSX 소개](https://ko.reactjs.org/docs/introducing-jsx.html)
 
