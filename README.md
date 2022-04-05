@@ -16,7 +16,7 @@ Today I learned...
 - [this](https://github.com/kalmtalyst/TIL/blob/main/JavaScript/this.md)
 - [실행 컨텍스트](https://github.com/kalmtalyst/TIL/blob/main/JavaScript/execution-context.md)
 - [비동기 프로그래밍](https://github.com/kalmtalyst/TIL/blob/main/JavaScript/async-programming.md)
-
+- [Ajax](https://github.com/kalmtalyst/TIL/blob/main/JavaScript/ajax.md)
 
 
 ## React
