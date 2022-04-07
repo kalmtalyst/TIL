@@ -16,8 +16,8 @@ function binarySearch(nums, value) {
   return -1;
 }
 
-let nums = [-1, 0, 3, 5, 9, 12];
-let value = 9;
+const nums = [-1, 0, 3, 5, 9, 12];
+const value = 9;
 
 let result = binarySearch(nums, value);
 
