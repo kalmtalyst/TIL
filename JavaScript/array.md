@@ -42,7 +42,7 @@ Object.getPrototypeOf(arr) === Array.prototype // true
 
 </br>
 
-### 배열과 일반 객체의 구분
+#### 배열과 일반 객체의 구분
 
 - 배열은 index와 length 프로퍼티를 갖기 때문에 반복문을 통해 순차적으로 값에 접근하기 적합한 자료구조이다.
 
@@ -57,7 +57,7 @@ Object.getPrototypeOf(arr) === Array.prototype // true
 
 ## 2. 자바스크립트 배열은 배열이 아니다.
 
-### 일반적인 배열
+#### 일반적인 배열
 
 - 동일한 크기의 메모리 공간이 빈틈없이 연속적으로 나열된 자료 구조이다.
 - 배열의 요소는 하나의 데이터 타입으로 통일되어 있으며 서로 연속적으로 인접해 있다.
@@ -65,7 +65,7 @@ Object.getPrototypeOf(arr) === Array.prototype // true
 
 </br>
 
-### 자바스크립트의 배열
+#### 자바스크립트의 배열
 
 - 자바스크립트의 배열은 일반적인 의미의 배열과 다르다.
 - 배열의 요소를 위한 각각의 메모리 공간은 동일한 크기를 갖지 않아도 되며 연속적으로 이어져 있지 않을 수도 있다.
@@ -75,7 +75,7 @@ Object.getPrototypeOf(arr) === Array.prototype // true
 
 </br>
 
-### 일반적인 배열과 자바스크립트 배열의 장단점
+#### 일반적인 배열과 자바스크립트 배열의 장단점
 
 - 일반적인 배열은 인덱스로 배열 요소에 빠르게 접근할 수 있다. 하지만 특정 요소를 검색하거나 요소를 삽입 또는 삭제하는 경우에는 효율적이지 않다.
 - 자바스크립트 배열은 해시 테이블로 구현된 객체이므로 인덱스로 배열 요소에 접근하는 경우, 일반적인 배열보다 성능적인 면에서 느릴 수 밖에 없는 구조적인 단점을 갖는다. 하지만 특정 요소를 검색하거나 요소를 삽입 또는 삭제하는 경우에는 일반적인 배열보다 빠른 성능을 기대할 수 있다.
@@ -149,6 +149,105 @@ console.log(Object.getOwnPropertyDescriptors(sparse));
 희소 배열은 사용하지 않는 것이 좋다. 의도적으로 희소 배열을 만들어야 하는 상황은 발생하지 않는다. 희소 배열은 연속적인 값의 집합이라는 배열의 기본적인 개념과 맞지 않으며 성능에도 좋지 않은 영향을 준다. 배열에는 같은 타입의 요소를 연속적으로 위치시키는 것이 최선이다.
 
 </br>
+
+## 4. 배열 생성
+
+### 4.1. 배열 리터럴
+
+-  0개 이상의 요소를 쉼표로 구분하여 대괄호([])로 묶는다.
+  -  값만 존재(프로퍼티 이름 X)
+
+```javascript
+const arr = [1, 2, 3];
+console.log(arr.length); // 3
+
+// 희소 배열
+const arr = [1, , 3];
+
+// 희소 배열의 length > 배열의 실제 요소 개수
+console.log(arr.length); // 3
+console.log(arr); // [1, empty, 3]
+console.log(arr[1]); // undefined -> 사실은 객체인 arr에 프로퍼티 키가 ‘1’인 프로퍼티가 존재하지 않기 때문
+```
+
+
+
+### 4.2. Array 생성자 함수
+
+- 전달된 인수가 1개이고 숫자인 경우, 인수를 length 프로퍼티의 값으로 갖는 배열을 생성한다.
+- 최대 2 – 1(4,294,967,295)개의 요소를 갖을 수 있다.
+- Array 생성자 함수에 전달할 인수는 0 또는 2 (4,294,967,296) 미만의 양의 정수여야 한다.
+- 전달된 인수가 없는 경우, 빈 배열을 생성한다. 
+- 전달된 인수가 2개 이상이거나 숫자가 아닌 경우, 인수를 요소로 갖는 배열을 생성한다.
+- Array 생성자 함수는 new 연산자와 함께 호출하지 않더라도, 즉 함수로 호출하더라도 배열을 생성하는 생성자 함수로 동작한다. 이는 Array 생성자 함수 내부에서 new.target을 확인하기 때문이다.
+
+```javascript
+const arr = new Array(10);
+console.log(arr); // [empty × 10]
+console.log(arr.length); // 10
+
+// 실제 배열의 요소는 존재하지 않음
+console.log(Object.getOwnPropertyDescriptors(arr));
+/*
+{
+ length: {value: 10, writable: true, enumerable: false, configurable: fals
+e}
+}
+*/
+
+// 전달된 인수가 음수이면 에러가 발생한다.
+new Array(-1); 
+RangeError: Invalid array length
+// 배열은 요소를 최대 4,294,967,295개 갖을 수 있다.
+new Array(4294967296); 
+RangeError: Invalid array length
+
+// 전달된 인수가 음수이면 에러가 발생한다.
+new Array(-1); // RangeError: Invalid array length
+// 배열은 요소를 최대 4,294,967,295개 갖을 수 있다.
+new Array(4294967296); // RangeError: Invalid array length
+
+// 전달된 인수가 없을 경우
+const empty = new Array();
+console.log(empty); // []
+
+// 전달된 인수가 2개 이상이면 인수를 요소로 갖는 배열을 생성한다.
+const arr1 = new Array(1, 2, 3);
+console.log(arr1); // [1, 2, 3]
+// 전달된 인수가 1개지만 숫자가 아니면 인수를 요소로 갖는 배열을 생성한다.
+const arr2 = new Array({});
+console.log(arr2); // [{}]
+
+// Array 생성자 함수를 함수로 호출시
+const arr = Array(1, 2, 3);
+console.log(arr); // [1, 2, 3]
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ## 참고자료
 
