@@ -170,7 +170,7 @@ console.log(arr); // [1, empty, 3]
 console.log(arr[1]); // undefined -> 사실은 객체인 arr에 프로퍼티 키가 ‘1’인 프로퍼티가 존재하지 않기 때문
 ```
 
-
+</br>
 
 ### 4.2. Array 생성자 함수
 
@@ -223,15 +223,115 @@ const arr = Array(1, 2, 3);
 console.log(arr); // [1, 2, 3]
 ```
 
+</br>
 
+### 4.3. Array.of
 
+- Array 생성자 함수와 다르게 전달된 인수가 1개이고 숫자이더라도 인수를 요소로 갖는 배열을 생성한다.
 
+```javascript
+// 전달된 인수가 1개이고 숫자이더라도 인수를 요소로 갖는 배열을 생성한다.
+const arr1 = Array.of(1);
+console.log(arr1); // [1]
 
+const arr2 = Array.of('string');
+console.log(arr2); // ['string']
+```
 
+</br>
 
+### 4.4. Array.from
 
+-  유사 배열 객체(array-like object) 또는 이터러블 객체(iterable object)를 변환하여 새로운 배열을 생성한다.(ES6)
 
+```javascript
+// 문자열은 이터러블이다.
+const arr1 = Array.from('Hello');
+console.log(arr1); // ['H', 'e', 'l', 'l', 'o']
 
+// 유사 배열 객체를 변환하여 새로운 배열을 생성한다.
+const arr2 = Array.from({ length: 2, 0: 'a', 1: 'b' });
+console.log(arr2); // ['a', 'b']
+```
+
+- Array.from을 사용하면 두번째 인수로 전달한 콜백 함수를 통해 값을 만들면서 요소를 채울 수 있다.
+
+```javascript
+// Array.from에 length만 존재하는 유사 배열을 전달하면 undefined를 요소로 채운다.
+const arr1 = Array.from({ length: 5 });
+console.log(arr1); // [undefined, undefined, undefined, undefined, undefined]
+```
+
+- 두번째 인수로 전달한 콜백 함수는 첫번째 인수에 의해 생성된 배열의 요소값과 인덱스를 순차적으로 전달 받아 새로운 요소를 생성할 수 있다.
+
+```javascript
+// Array.from의 두번째 인수로 배열의 모든 요소에 대해 호출할 콜백 함수를 전달할 수 있다.
+// 이 콜백 함수는 첫번째 인수에 의해 생성된 배열의 요소값과 인덱스를 순차적으로 전달받아 호출된다.
+const arr2 = Array.from({ length: 5 }, (_, i) => i);
+console.log(arr2); // [0, 1, 2, 3, 4]
+```
+
+> **유사 배열 객체와 이터러블 객체**
+> **유사 배열 객체(array-like Object)**는 마치 배열처럼 인덱스로 프로퍼티 값에 접근할 수 있고 length 프로퍼티를 갖는 객체를 말한다. 유사 배열 객체는 마치 배열처럼 인덱스를 통해 프로퍼티에 접근할 수 있으며 length 프로퍼티를 갖기 때문에 for 문으로 순회할 수도 있다.
+>
+> **이터러블 객체(iterable object)**는 Symbol.iterator 메소드를 구현하여 for…of 문으로 순회할 수 있으며 스프레드 문법의 대상으로 사용할 수 있는 객체를 말한다. ES6에서 제공하는 빌트인 이터러블은 Array, String, Map, Set, DOM 컬렉션(NodeList, HTMLCollection), Arguments 등이 있다.
+
+```javascript
+// 유사 배열 객체
+const arrayLike = {
+ '0': 'apple',
+ '1': 'banana',
+ '2': 'orange',
+ length: 3
+};
+
+// 유사 배열 객체는 마치 배열처럼 인덱스로 프로퍼티 값에 접근할 수 있다.
+// 유사 배열 객체는 length 프로퍼티를 갖기 때문에 for 문으로 순회할 수도 있다.
+for (let i = 0; i < arrayLike.length; i++ ) {
+ console.log(arrayLike[i]); // apple banana orange
+}
+```
+
+</br>
+
+## 5. 배열 요소의 참조
+
+- 배열 요소 참조시 대괄호([]) 표기법을 사용한다.
+- 대괄호 안에는 인덱스가 와야한다.
+- 인덱스는 값을 참조할 수 있다는 의미이다.(객체의 프로퍼티 키와 같은 역할)
+- 정수로 평가되는 표현식이라면 인덱스 대신 사용할 수 있다.
+
+```javascript
+const arr = [1, 2];
+
+// 인덱스가 0인 요소를 참조
+console.log(arr[0]); // 1
+// 인덱스가 1인 요소를 참조
+console.log(arr[1]); // 2
+// 인덱스가 2인 요소를 참조
+// 배열 arr에 인덱스가 2인 요소는 존재하지 않는다.
+console.log(arr[2]); // undefined
+```
+
+- 희소 배열의 존재하지 않는 요소를 참조하여도 undened가 반환된다.
+
+```javascript
+// 희소 배열
+const arr = [1, , 3];
+
+// 배열 arr에는 인덱스가 1인 요소가 존재하지 않는다.
+console.log(Object.getOwnPropertyDescriptors(arr));
+/*
+{
+ '0': {value: 1, writable: true, enumerable: true, configurable: true},
+ '2': {value: 3, writable: true, enumerable: true, configurable: true},
+ length: {value: 3, writable: true, enumerable: false, configurable: false}
+*/
+
+// 존재하지 않는 요소를 참조하면 undefined가 반환된다.
+console.log(arr[1]); // undefined
+console.log(arr[3]); // undefined
+```
 
 
 
