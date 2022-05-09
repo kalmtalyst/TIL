@@ -14,30 +14,30 @@
 - 자바스크립트에 배열이라는 타입은 존재하지 않는다.
 
 ```javascript
-const array = ['red', 'green', 'black'];
+const array = ["red", "green", "black"];
 
-array[0] // 'red'
-array[1] // 'green'
-array[2] // 'black'
+array[0]; // 'red'
+array[1]; // 'green'
+array[2]; // 'black'
 
 // length 프로퍼티
-array.length // 3
+array.length; // 3
 
 // 배열의 타입
-typeof array // object
+typeof array; // object
 ```
 
 </br>
 
-- 배열은 배열 리터럴 또는 Array 생성자 함수로 생성할 수 있다. 
+- 배열은 배열 리터럴 또는 Array 생성자 함수로 생성할 수 있다.
   - 두 경우 모두 배열의 생성자 함수 : Array
   - 배열의 프로토타입 객체 : Array.prototype (배열을 위한 빌트인 메소드 들을 제공)
 
 ```javascript
 const arr = [1, 2, 3];
 
-arr.constructor === Array // true
-Object.getPrototypeOf(arr) === Array.prototype // true
+arr.constructor === Array; // true
+Object.getPrototypeOf(arr) === Array.prototype; // true
 ```
 
 </br>
@@ -89,10 +89,9 @@ Object.getPrototypeOf(arr) === Array.prototype // true
 - length 프로퍼티는 요소의 개수(=배열의 길이)를 나타내는 정수를 값으로 갖는다.
 
 ```javascript
-// length 프로퍼티의 값은 빈 배열일 경우, 0이며 
+// length 프로퍼티의 값은 빈 배열일 경우, 0이며
 // 빈 배열이 아닐 경우, 가장 큰 인덱스에 1을 더한 것과 같다.
-[].length // 0
-[1, 2, 3].length // 3
+[].length[(1, 2, 3)].length; // 0 // 3
 ```
 
 - length 프로퍼티의 값은 0과 2 - 1(4,294,967,296 - 1) 미만의 양의 정수이다.
@@ -110,7 +109,6 @@ arr.length = 3;
 // 배열의 길이가 줄어든다.
 console.log(arr); // [1, 2, 3]
 
-
 const arr = [1];
 
 // length 프로퍼티에 현재 length 프로퍼티 값보다 큰 숫자 값을 할당
@@ -121,11 +119,11 @@ console.log(arr.length); // 3
 console.log(arr); // [1, empty × 2]
 ```
 
-위 예제의 출력 결과에서 empty × 2는 실제로 추가된 배열의 요소가 아니다. 
+위 예제의 출력 결과에서 empty × 2는 실제로 추가된 배열의 요소가 아니다.
 
 즉, arr[1]과 arr[2]에는 값이 존재하지 않는다. 실제 배열에도 아무런 변함이 없다. 값이 없이 비어있는 요소를 위해 메모리 공간을 확보하지 않으며 빈 요소를 생성하지도 않는다.
 
-이처럼 배열의 요소가 연속적으로 위치하지 않고 일부가 비어있는 배열을 희소 배열이라 한다. 자바스크립트는 희소 배열을 문법적으로 허용한다. 
+이처럼 배열의 요소가 연속적으로 위치하지 않고 일부가 비어있는 배열을 희소 배열이라 한다. 자바스크립트는 희소 배열을 문법적으로 허용한다.
 
 ```javascript
 // 희소 배열
@@ -154,8 +152,8 @@ console.log(Object.getOwnPropertyDescriptors(sparse));
 
 ### 4.1. 배열 리터럴
 
--  0개 이상의 요소를 쉼표로 구분하여 대괄호([])로 묶는다.
-  -  값만 존재(프로퍼티 이름 X)
+- 0개 이상의 요소를 쉼표로 구분하여 대괄호([])로 묶는다.
+- 값만 존재(프로퍼티 이름 X)
 
 ```javascript
 const arr = [1, 2, 3];
@@ -177,7 +175,7 @@ console.log(arr[1]); // undefined -> 사실은 객체인 arr에 프로퍼티 키
 - 전달된 인수가 1개이고 숫자인 경우, 인수를 length 프로퍼티의 값으로 갖는 배열을 생성한다.
 - 최대 2 – 1(4,294,967,295)개의 요소를 갖을 수 있다.
 - Array 생성자 함수에 전달할 인수는 0 또는 2 (4,294,967,296) 미만의 양의 정수여야 한다.
-- 전달된 인수가 없는 경우, 빈 배열을 생성한다. 
+- 전달된 인수가 없는 경우, 빈 배열을 생성한다.
 - 전달된 인수가 2개 이상이거나 숫자가 아닌 경우, 인수를 요소로 갖는 배열을 생성한다.
 - Array 생성자 함수는 new 연산자와 함께 호출하지 않더라도, 즉 함수로 호출하더라도 배열을 생성하는 생성자 함수로 동작한다. 이는 Array 생성자 함수 내부에서 new.target을 확인하기 때문이다.
 
@@ -196,10 +194,10 @@ e}
 */
 
 // 전달된 인수가 음수이면 에러가 발생한다.
-new Array(-1); 
+new Array(-1);
 RangeError: Invalid array length
 // 배열은 요소를 최대 4,294,967,295개 갖을 수 있다.
-new Array(4294967296); 
+new Array(4294967296);
 RangeError: Invalid array length
 
 // 전달된 인수가 음수이면 에러가 발생한다.
@@ -234,7 +232,7 @@ console.log(arr); // [1, 2, 3]
 const arr1 = Array.of(1);
 console.log(arr1); // [1]
 
-const arr2 = Array.of('string');
+const arr2 = Array.of("string");
 console.log(arr2); // ['string']
 ```
 
@@ -242,15 +240,15 @@ console.log(arr2); // ['string']
 
 ### 4.4. Array.from
 
--  유사 배열 객체(array-like object) 또는 이터러블 객체(iterable object)를 변환하여 새로운 배열을 생성한다.(ES6)
+- 유사 배열 객체(array-like object) 또는 이터러블 객체(iterable object)를 변환하여 새로운 배열을 생성한다.(ES6)
 
 ```javascript
 // 문자열은 이터러블이다.
-const arr1 = Array.from('Hello');
+const arr1 = Array.from("Hello");
 console.log(arr1); // ['H', 'e', 'l', 'l', 'o']
 
 // 유사 배열 객체를 변환하여 새로운 배열을 생성한다.
-const arr2 = Array.from({ length: 2, 0: 'a', 1: 'b' });
+const arr2 = Array.from({ length: 2, 0: "a", 1: "b" });
 console.log(arr2); // ['a', 'b']
 ```
 
@@ -271,24 +269,23 @@ const arr2 = Array.from({ length: 5 }, (_, i) => i);
 console.log(arr2); // [0, 1, 2, 3, 4]
 ```
 
-> **유사 배열 객체와 이터러블 객체**
-> **유사 배열 객체(array-like Object)**는 마치 배열처럼 인덱스로 프로퍼티 값에 접근할 수 있고 length 프로퍼티를 갖는 객체를 말한다. 유사 배열 객체는 마치 배열처럼 인덱스를 통해 프로퍼티에 접근할 수 있으며 length 프로퍼티를 갖기 때문에 for 문으로 순회할 수도 있다.
+> **유사 배열 객체와 이터러블 객체** > **유사 배열 객체(array-like Object)**는 마치 배열처럼 인덱스로 프로퍼티 값에 접근할 수 있고 length 프로퍼티를 갖는 객체를 말한다. 유사 배열 객체는 마치 배열처럼 인덱스를 통해 프로퍼티에 접근할 수 있으며 length 프로퍼티를 갖기 때문에 for 문으로 순회할 수도 있다.
 >
 > **이터러블 객체(iterable object)**는 Symbol.iterator 메소드를 구현하여 for…of 문으로 순회할 수 있으며 스프레드 문법의 대상으로 사용할 수 있는 객체를 말한다. ES6에서 제공하는 빌트인 이터러블은 Array, String, Map, Set, DOM 컬렉션(NodeList, HTMLCollection), Arguments 등이 있다.
 
 ```javascript
 // 유사 배열 객체
 const arrayLike = {
- '0': 'apple',
- '1': 'banana',
- '2': 'orange',
- length: 3
+  0: "apple",
+  1: "banana",
+  2: "orange",
+  length: 3,
 };
 
 // 유사 배열 객체는 마치 배열처럼 인덱스로 프로퍼티 값에 접근할 수 있다.
 // 유사 배열 객체는 length 프로퍼티를 갖기 때문에 for 문으로 순회할 수도 있다.
-for (let i = 0; i < arrayLike.length; i++ ) {
- console.log(arrayLike[i]); // apple banana orange
+for (let i = 0; i < arrayLike.length; i++) {
+  console.log(arrayLike[i]); // apple banana orange
 }
 ```
 
@@ -313,7 +310,7 @@ console.log(arr[1]); // 2
 console.log(arr[2]); // undefined
 ```
 
-- 희소 배열의 존재하지 않는 요소를 참조하여도 undened가 반환된다.
+- 희소 배열의 존재하지 않는 요소를 참조하여도 undefined가 반환된다.
 
 ```javascript
 // 희소 배열
@@ -333,21 +330,114 @@ console.log(arr[1]); // undefined
 console.log(arr[3]); // undefined
 ```
 
+</br>
 
+## 6. 배열 요소의 추가와 갱신
 
+- 요소가 존재하지 않는 인덱스의 배열 요소에 값을 할당하면 새로운 요소가 추가된다.
 
+  (length 프로퍼티 값은 자동 갱신됨)
 
+```javascript
+const arr = [0];
 
+// 배열 요소의 추가
+arr[1] = 1;
 
+console.log(arr); // [0, 1]
+console.log(arr.length); // 2
+```
 
+- 현재 배열의 length 프로퍼티 값보다 큰 인덱스로 새로운 요소를 추가하면 희소 배열이 된다.
+- 인덱스로 요소에 접근하여 명시적으로 값을 할당하지 않은 요소는 생성되지 않는다.
+- 요소가 존재하는 요소에 값을 재할당하면 요소값이 갱신된다.
 
+```javascript
+// length 프로퍼티 값보다 큰 인덱스로 새로운 요소를 추가
+arr[100] = 100;
 
+console.log(arr); // [0, 1, empty × 98, 100]
+console.log(arr.length); // 101
 
+// 명시적으로 값을 할당하지 않은 요소는 생성되지 않는다.
+console.log(Object.getOwnPropertyDescriptors(arr));
+/*
+{
+ '0': {value: 0, writable: true, enumerable: true, configurable: true},
+ '1': {value: 1, writable: true, enumerable: true, configurable: true},
+ '100': {value: 100, writable: true, enumerable: true, configurable: true},
+ length: {value: 101, writable: true, enumerable: false, configurable: fals
+e}
+*/
 
+// 요소값의 갱신
+arr[1] = 10;
+console.log(arr); // [0, 10, empty × 98, 100]
+```
 
+- 인덱스는 요소의 위치를 나타낸다.
 
+  따라서 반드시 0 이상의 정수(또는 정수 형태의 문자열)를 사용하여야 한다.
 
+  만약 정수 이외의 값을 인덱스처럼 사용할 경우, 프로퍼티가 생성된다. (요소 생성X)
 
+  이때 추가된 프로퍼티는 length 프로퍼티의 값에 영향을 주지 않는다.
+
+```javascript
+const arr = [];
+
+// 배열 요소의 추가
+arr[0] = 1;
+arr["1"] = 2;
+
+// 프로퍼티 추가
+arr["foo"] = 3;
+arr.bar = 4;
+arr[1.1] = 5;
+arr[-1] = 6;
+
+console.log(arr); // [1, 2, foo: 3, bar: 4, '1.1': 5, '-1': 6]
+
+// 프로퍼티는 length에 영향을 주지 않는다.
+console.log(arr.length); // 2
+```
+
+</br>
+
+## 7. 배열 요소의 삭제
+
+배열은 객체이므로 `delete` 연산자를 사용해 특정 요소를 삭제할 수 있다.
+
+```javascript
+const arr = [1, 2, 3];
+
+// 배열 요소의 삭제
+delete arr[1];
+console.log(arr); // [1, empty, 3]
+
+// length 프로퍼티에 영향을 주지 않는다. 즉, 희소 배열이 된다.
+console.log(arr.length); // 3
+```
+
+#### `delete` 연산자
+
+- 객체의 프로퍼티를 삭제한다.
+- 위의 예제와 같이 희소배열을 만드므로 사용하지 않는 것이 좋다.
+- 배열의 특정 요소를 완전히 삭제하려면 `Array.prototype.splice` 메소드를 사용한다.
+  - Array.prototype.splice(삭제를 시작할 인덱스, 삭제할 요소수)
+
+```javascript
+const arr = [1, 2, 3];
+
+// arr[1]부터 1개의 요소를 제거
+arr.splice(1, 1);
+console.log(arr); // [1, 3]
+
+// length 프로퍼티에 변경이 반영된다.
+console.log(arr.length); // 2
+```
+
+</br>
 
 ## 참고자료
 
